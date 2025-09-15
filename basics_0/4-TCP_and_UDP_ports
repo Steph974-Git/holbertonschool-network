@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # filepath: /home/oniji/holbertonschool-network/basics_0/4-TCP_and_UDP_ports
 
-sucdo netstat -l
+sudo netstat -l
