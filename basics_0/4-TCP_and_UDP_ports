@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
 # filepath: /home/oniji/holbertonschool-network/basics_0/4-TCP_and_UDP_ports
 
-echo "Active Internet connections (only servers)"
-ss -lntuap
-
-echo "Active UNIX domain sockets (only servers)"
-ss -lxap
+sucdo netstat -l
