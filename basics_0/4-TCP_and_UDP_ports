@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# filepath: /home/oniji/holbertonschool-network/basics_0/4-TCP_and_UDP_ports
+
+sudo ss -lntuap
+sudo ss -lxap
