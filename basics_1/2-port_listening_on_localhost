@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # This script displays all ports listening on localhost (127.0.0.1)
 
-ss -ltn | awk '$4 ~ /127\.0\.0\.1/ {print $4}' | cut -d: -f2
+nc -l 127.0.0.1 98
