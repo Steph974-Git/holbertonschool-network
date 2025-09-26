@@ -1,0 +1,94 @@
+What happens when you type https://www.google.com into your browser?
+
+
+
+What seems like an instantaneous action is actually a complex symphony of technologies working in concert at the speed of light. From your keyboard to servers located thousands of kilometers away, every step is crucial. Let’s break down this fascinating journey.
+
+Step 1: The DNS Request — The Internet’s Phonebook
+The first thing your browser does is translate the human-readable domain name (www.google.com) into a machine-readable IP address (for example, 142.250.179.196). Computers on the Internet communicate using IP addresses, not names. This translation process is handled by the DNS (Domain Name System).
+
+It’s a bit like looking up someone’s phone number in a directory before being able to call them. The process unfolds in several steps:
+
+Browser cache: The browser first checks its own memory (cache) to see if it has recently visited this site. If the IP address is there, it uses it directly.
+Operating system (OS) cache: If nothing is found, it asks the operating system, which also has its own DNS cache.
+DNS resolver request: If the address is still not found, the request is sent to a DNS resolver, usually provided by your Internet Service Provider (ISP).
+Recursive query: The resolver then begins a recursive search.
+It queries a Root Server, which redirects it to the Top-Level Domain (TLD) server for .com.
+The TLD server then redirects it to the Authoritative Name Servers for google.com.
+These name servers hold the final DNS record and return the IP address of www.google.com to the resolver, which caches it and sends it back to your browser.
+Once the browser has the IP address, it knows which door to knock on.
+
+Step 2: The TCP/IP Protocol — Establishing the Connection
+Now that we have the destination address, the browser must establish a reliable connection with Google’s server. To do this, it uses the TCP/IP protocol suite.
+
+The TCP/IP model is the foundation of the Internet. For our request, the most important part is TCP (Transmission Control Protocol). TCP ensures that data packets are delivered without errors and in the correct order.
+
+To achieve this, the browser and the server perform a three-step handshake, known as the TCP three-way handshake:
+
+SYN: Your computer sends a SYN (synchronize) packet to Google’s server to initiate a connection.
+SYN-ACK: The server responds with a SYN-ACK (synchronize-acknowledgment) packet to acknowledge the request.
+ACK: Your computer sends a final ACK (acknowledgment) packet to confirm the connection.
+The connection is now established and ready to transfer data!
+
+Step 3: Firewall and HTTPS/SSL — Securing the Conversation
+Before any sensitive data is exchanged, two security mechanisms come into play.
+
+Firewall
+Throughout its journey, the request passes through several firewalls. There’s probably one on your computer, on your router, at your ISP, and of course at the entrance to Google’s infrastructure. A firewall acts like a security guard, inspecting data packets and blocking any suspicious or unauthorized traffic based on predefined rules.
+
+HTTPS/SSL (TLS)
+The URL begins with https instead of http. The “s” stands for Secure. This tells the browser that it must establish an encrypted connection using the TLS (Transport Layer Security) protocol, the successor to SSL (Secure Sockets Layer).
+
+Right after the TCP handshake, a TLS handshake takes place:
+
+Client Hello: Your browser sends a message to the server with its TLS version and the encryption algorithms it supports.
+Server Hello: The server responds with the chosen encryption algorithm and sends its SSL certificate.
+Certificate verification: The browser checks that the certificate is valid and has been issued by a trusted Certificate Authority (CA). This certificate proves that the server really is who it claims to be (www.google.com).
+Key exchange: The browser and the server use public-key cryptography to securely negotiate a secret session key.
+Encryption: All subsequent data exchanged (the HTTP request and the response) will be encrypted with this session key.
+Your connection is now private and secure. No one between you and Google can read the information being exchanged.
+
+Step 4: The Load Balancer — Distributing the Traffic
+Google receives billions of requests every day. A single machine could never handle such a volume. That’s why your request doesn’t go directly to a web server, but first to a load balancer.
+
+The role of the load balancer is to distribute incoming traffic across a large number of downstream servers. This makes it possible to:
+
+Prevent a single server from being overloaded.
+Ensure high availability: if one server goes down, the load balancer simply redirects traffic to the remaining healthy servers.
+Improve response times.
+It uses algorithms (such as Round Robin or Least Connections) to choose the best server to handle your request.
+
+Step 5: Processing — Web Server and Application Server
+The request, now encrypted and routed, finally reaches a machine capable of handling it.
+
+Web Server
+The first to receive the request is a web server (such as Nginx or Apache). Its main role is to handle HTTP requests.
+
+For static content (like Google’s logo, CSS files, or JavaScript), the web server can simply find the file and return it directly.
+For dynamic content (like your search results), the request requires more complex logic. The web server then acts as an intermediary and forwards the request to an application server.
+Application Server
+This is where the “brain” of Google’s application comes into play. The application server runs the code that generates the results page. It analyzes your HTTP request (Who are you? What are you searching for? In which language?), executes the complex business logic of the search algorithm, and prepares a personalized response.
+
+Step 6: The Database — The Source of Truth
+To generate the search results, the application server must query Google’s massive database — or more precisely, its search index. This isn’t a traditional database but an incredibly complex and optimized distributed storage system (think of systems like Bigtable or Spanner).
+
+The application server sends a query to this data layer to retrieve the most relevant web pages matching your search. The database then returns the information to the application server.
+
+Step 7: The Response and Browser Rendering
+Generating the response: The application server retrieves the data from the database and uses it to build an HTML page.
+
+Sending the response: This HTML page is sent back to the web server, which wraps it in an HTTP response (with a status code, for example, 200 OK) and returns it to your browser over the secure TCP/IP connection.
+
+Rendering the page: Your browser receives the HTML code and begins the rendering process:
+
+It parses the HTML to build the DOM (Document Object Model), a tree-like representation of the page structure.
+When it encounters links to other resources (CSS files, JavaScript, images), it repeats steps 1 to 6 for each of them.
+It parses the CSS to build the CSSOM (CSS Object Model).
+It combines the DOM and CSSOM to create the Render Tree.
+Finally, it performs layout (calculating the position and size of each element) and paint (drawing the pixels on the screen).
+And there it is! Google’s homepage appears on your screen.
+
+![alt text](1-what_happen_when_diagram.png)
+
+Conclusion
+Behind a simple press of the “Enter” key lies an incredibly orchestrated dance of dozens of technologies. From DNS resolution to establishing secure connections, through load balancing and application logic processing, every step is a vital link in the chain that powers the modern web. Understanding this flow is fundamental for any software engineer — and a great way to appreciate the magic of the Internet.
